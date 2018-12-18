@@ -1,0 +1,103 @@
+[
+  {
+    "id": "a3f701c1.f7381",
+    "type": "rpi-gpio out",
+    "z": "39e13ff5.c69e1",
+    "name": "",
+    "pin": "12",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "x": 513,
+    "y": 136,
+    "wires": []
+  },
+  {
+    "id": "b303e52b.648e88",
+    "type": "rpi-gpio out",
+    "z": "39e13ff5.c69e1",
+    "name": "",
+    "pin": "13",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "x": 514,
+    "y": 214,
+    "wires": []
+  },
+  {
+    "id": "84b2eef6.f830e",
+    "type": "rpi-gpio out",
+    "z": "39e13ff5.c69e1",
+    "name": "",
+    "pin": "15",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "x": 513,
+    "y": 272,
+    "wires": []
+  },
+  {
+    "id": "69b4d6d1.1f9d38",
+    "type": "function",
+    "z": "39e13ff5.c69e1",
+    "name": "LED_ON/OFF",
+    "func": "var ledIndx = context.get('ledIndx');\nvar way = context.get('way');\nif (!ledIndx) {\n    var way = true;\n    var ledIndx = 0;\n}\nvar arr = [{payload : 0}, {payload : 0}, \n{payload : 0}, {payload : 0}];\narr[ledIndx] = {payload : 1};\nif (way){\n    ledIndx++;\n} else {\n    ledIndx--;\n}\nif (ledIndx == 3){\n    way=false;\n}\nif (ledIndx < 1){\n    way=true;\n}\n\ncontext.set('ledIndx', ledIndx);\ncontext.set('way', way);\nreturn arr;\n",
+    "outputs": 4,
+    "noerr": 0,
+    "x": 294,
+    "y": 152,
+    "wires": [
+      [
+        "c952eac3.aa12a8"
+      ],
+      [
+        "a3f701c1.f7381"
+      ],
+      [
+        "b303e52b.648e88"
+      ],
+      [
+        "84b2eef6.f830e"
+      ]
+    ]
+  },
+  {
+    "id": "c952eac3.aa12a8",
+    "type": "rpi-gpio out",
+    "z": "39e13ff5.c69e1",
+    "name": "",
+    "pin": "11",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "x": 515,
+    "y": 81,
+    "wires": []
+  },
+  {
+    "id": "c94e1baa.7b01c8",
+    "type": "inject",
+    "z": "39e13ff5.c69e1",
+    "name": "",
+    "topic": "",
+    "payload": "1",
+    "payloadType": "num",
+    "repeat": "2",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 92,
+    "y": 153,
+    "wires": [
+      [
+        "69b4d6d1.1f9d38"
+      ]
+    ]
+  }
+]
